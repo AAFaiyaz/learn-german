@@ -1,47 +1,86 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Simulated blog data
-  const blogPosts = [
-    {
-      title: "Understanding JavaScript Basics",
-      content:
-        "Learn the fundamentals of JavaScript to get started with web development.",
-    },
-    {
-      title: "Introduction to Tailwind CSS",
-      content:
-        "Discover how to use Tailwind CSS for building fast and responsive UIs.",
-    },
-    {
-      title: "HTML & CSS Tips for Beginners",
-      content: "Essential tips to make your first website look great.",
-    },
-  ];
+  const token = localStorage.getItem("token");
+  if (token) {
+    // Optionally, check token validity (e.g., by sending a request to a protected endpoint)
+    window.location.href = "/dashboard.html"; // Redirect to dashboard if already logged in
+  }
 
-  // Populate the blog section dynamically
-  const blogContainer = document.getElementById("blog-container");
-  blogPosts.forEach((post) => {
-    const postElement = document.createElement("div");
-    postElement.className = "bg-white p-4 rounded shadow";
-    postElement.innerHTML = `
-            <h3 class="text-lg font-bold mb-2">${post.title}</h3>
-            <p>${post.content}</p>
-        `;
-    blogContainer.appendChild(postElement);
-  });
-
-  // Login form handling
   const loginForm = document.getElementById("login-form");
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault(); // Prevent form from submitting normally
 
-    // Basic validation (add backend validation for production use)
-    if (username && password) {
-      alert(`Welcome, ${username}!`);
-      // Implement login logic here (e.g., call a backend API)
-    } else {
-      alert("Please enter both username and password.");
-    }
-  });
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem("token", data.token);
+          alert("Login successful!");
+          window.location.href = "/dashboard.html"; // Redirect to dashboard
+        } else {
+          alert(data.message || "Login failed. Please check your credentials.");
+        }
+      } catch (error) {
+        console.error("Error logging in:", error);
+        alert("An error occurred. Please try again.");
+      }
+    });
+  }
 });
+
+// Function to load blog posts
+async function loadBlogPosts() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("You must be logged in to view blog posts.");
+    window.location.href = "/index.html"; // Redirect to login page
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5000/api/blog", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const blogContainer = document.getElementById("blog-container");
+    blogContainer.innerHTML = ""; // Clear existing content
+
+    if (response.ok) {
+      const blogs = await response.json();
+      blogs.forEach((blog) => {
+        const blogElement = document.createElement("div");
+        blogElement.className = "bg-white p-4 rounded shadow";
+        blogElement.innerHTML = `
+          <h3 class="text-lg font-bold mb-2">${blog.title}</h3>
+          <p>${blog.content}</p>
+        `;
+        blogContainer.appendChild(blogElement);
+      });
+    } else {
+      alert("Failed to load blog posts");
+    }
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    alert("An error occurred while loading blog posts.");
+  }
+}
+
+// Call the function to load blog posts on page load if on the dashboard page
+if (window.location.pathname === "/dashboard.html") {
+  loadBlogPosts();
+}

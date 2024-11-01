@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script defer src="dashboard.js"></script>
+  </head>
+  <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <!-- Navbar -->
+    <nav class="bg-blue-500 p-4 text-white">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl">Dashboard</h1>
+        <button onclick="logout()" class="bg-red-500 px-4 py-2 rounded">
+          Logout
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mx-auto mt-8">
+      <!-- Blog Section -->
+      <section
+        id="create-blog-section"
+        class="bg-white p-6 rounded shadow-md mb-8"
+      >
+        <h2 class="text-xl font-bold mb-4">Create New Blog Post</h2>
+        <form id="create-blog-form">
+          <div class="mb-4">
+            <label for="blog-title" class="block mb-2 text-sm">Title:</label>
+            <input
+              type="text"
+              id="blog-title"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+          <div class="mb-4">
+            <label for="blog-content" class="block mb-2 text-sm"
+              >Content:</label
+            >
+            <textarea
+              id="blog-content"
+              class="w-full p-2 border rounded"
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="bg-blue-500 text-white py-2 px-4 rounded"
+          >
+            Create Post
+          </button>
+        </form>
+      </section>
+
+      <section id="blog-section" class="mb-8">
+        <h2 class="text-xl font-bold mb-4">Your Blog Posts</h2>
+        <div
+          id="blog-container"
+          class="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+        >
+          <!-- Blog posts will be added dynamically here -->
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-8">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2024 Educational Website Dashboard. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
