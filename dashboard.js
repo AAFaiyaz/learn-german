@@ -20,17 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         showSpinner(); // Show loading indicator
 
-        const response = await fetch(
-          "https://learn-german-fkbb37vnb-faiyazs-projects-8a97e36c.vercel.app/api/blog",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ title, content }),
-          }
-        );
+        const response = await fetch("http://localhost:5000/api/blog", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ title, content }),
+        });
 
         hideSpinner(); // Hide loading indicator
 
