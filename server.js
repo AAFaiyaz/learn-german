@@ -7,16 +7,7 @@ const authRoutes = require("./routes/auth");
 const blogRoutes = require("./routes/blog");
 
 const app = express();
-
-// Update CORS configuration to allow requests from your GitHub Pages site
-app.use(
-  cors({
-    origin: ["https://aafaiyaz.github.io", "http://localhost:5000"], // Add your GitHub Pages URL
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
-  })
-);
-
+app.use(cors());
 app.use(express.json());
 
 mongoose
