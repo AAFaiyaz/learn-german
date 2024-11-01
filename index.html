@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Educational Website</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script defer src="script.js"></script>
+  </head>
+  <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <!-- Navbar -->
+    <nav class="bg-blue-500 p-4 text-white">
+      <div class="container mx-auto">
+        <h1 class="text-2xl">Educational Website</h1>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mx-auto mt-8">
+      <!-- Blog Section -->
+      <section id="blog-section" class="mb-8">
+        <h2 class="text-xl font-bold mb-4">Blog Posts</h2>
+        <div
+          id="blog-container"
+          class="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+        >
+          <!-- Blog posts will be added dynamically here -->
+        </div>
+      </section>
+
+      <!-- Login Form -->
+      <section
+        id="login-section"
+        class="bg-white p-6 rounded shadow-md max-w-md mx-auto mb-8"
+      >
+        <h2 class="text-xl font-bold mb-4">Login</h2>
+        <form id="login-form">
+          <div class="mb-4">
+            <label for="username" class="block mb-2 text-sm">Username:</label>
+            <input
+              type="text"
+              id="username"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+          <div class="mb-4">
+            <label for="password" class="block mb-2 text-sm">Password:</label>
+            <input
+              type="password"
+              id="password"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-blue-500 text-white py-2 rounded"
+          >
+            Login
+          </button>
+        </form>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-8">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2024 Educational Website. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
