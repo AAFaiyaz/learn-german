@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
-
+      // login is not working
       try {
         const response = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
