@@ -76,6 +76,7 @@ async function loadBlogPosts() {
     }
   } catch (error) {
     console.error("Error fetching blogs:", error);
+    console.log("error checked here");
     alert("An error occurred while loading blog posts.");
   }
 }
